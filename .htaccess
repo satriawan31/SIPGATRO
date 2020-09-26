@@ -1,0 +1,26 @@
+RewriteEngine On
+
+#RewriteCond %{HTTPS} off
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteCond %{HTTP:CF-Visitor} !https
+#RewriteRule ^(.*)$ https://www.ppjdeliserdang.com/$1 [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+
+php_flag display_errors 1
+
+#untuk href user
+RewriteRule ^([a-zA-Z0-9_-]+)$ reset.php?code=$1
+
+# 1 ---- Establish a custom 404 file not found page ----
+ErrorDocument 404 "<head><title>Not Found</title></head><body style='background: url(images/notfound.png) no-repeat; background-size: 100%;'></body>"
+
+# 2 ---- prevent directory file listing in all of your folders ----
+IndexIgnore *
